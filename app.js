@@ -26,21 +26,21 @@ function getAverageWordLength(texts) {
 
 function getAverageSentenceLength(texts){
   // "use strict";
+  var tkText = tokenizeText(texts);
   var sentenceNumber = texts.match(/[.!?]+/g).length;
-  console.log(sentenceNumber);
   var sentenceArray = texts.split(/[.!?]+/g);
   var totalSentenceLengths = 0;
   for(var i = 0; i < sentenceArray.length-1; i++){
     totalSentenceLengths+= sentenceArray[i].length;
   }
-  return (totalSentenceLengths+sentenceArray.length)/sentenceNumber;
+  return (tkText.length)/sentenceNumber;
 }
 
 function tokenizeText(texts) {
   return texts.toLowerCase().match(/\b[^\s]+\b/g).sort();
 }
 function displayInfo(texts){
-  var display = $('.js-text-form');
+  var display = $('.js-text-report');
   var wordCount = getTotalWordCount(texts);
   var uniqueCount = getUniqueWordCount(texts);
   var averageWord = getAverageWordLength(texts);
@@ -48,8 +48,8 @@ function displayInfo(texts){
 
   display.find('.js-word-count').text(wordCount);
   display.find('.js-unique-word-count').text(uniqueCount);
-  display.find('.js-average-word-length').text(averageWord + 'characters');
-  display.find('.js-average-sentence-length').text(averageSentence + 'words');
+  display.find('.js-average-word-length').text(averageWord.toFixed(0) + ' characters');
+  display.find('.js-average-sentence-length').text(averageSentence + ' words');
 }
 function removeLineBreaks(texts){
   //I have no Idea what this means
